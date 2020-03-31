@@ -28,7 +28,10 @@ import com.sonyericsson.hudson.plugins.metadata.model.PluginImpl;
 import hudson.Extension;
 import hudson.model.Hudson;
 import hudson.model.RootAction;
+import hudson.model.TopLevelItem;
 import hudson.security.Permission;
+import java.util.ArrayList;
+import java.util.List;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
@@ -109,9 +112,8 @@ public class MetadataSearchPage implements RootAction {
     public void doSearchMetadata(@QueryParameter("metadata.search.queryString")
             final String queryString, StaplerRequest request, StaplerResponse response)
             throws Exception {
-        MetadataQuerySearch metadataQuerySearch = MetadataQuerySearch.parseQuery(queryString);
-        request.getSession(true).setAttribute("metadata.search.result",
-                metadataQuerySearch.searchQuery(Hudson.getInstance().getItems()));
+        List<TopLevelItem> result = new ArrayList<TopLevelItem>();
+        request.getSession(true).setAttribute("metadata.search.result", result);
         request.getSession(true).setAttribute("metadata.search.queryString", queryString);
         response.sendRedirect2(".");
     }

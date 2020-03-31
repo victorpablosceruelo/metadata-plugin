@@ -54,6 +54,7 @@ import javax.servlet.ServletOutputStream;
 import java.util.Collections;
 
 import static com.sonyericsson.hudson.plugins.metadata.cli.CliResponse.CONTENT_TYPE;
+import java.util.logging.Logger;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.contains;
@@ -84,6 +85,7 @@ public class HttpCliRootActionTest {
     private String printed;
     private ACL acl;
     private Queue queue;
+    private static Logger logger = Logger.getAnonymousLogger();
 
     /**
      * Do some mocking for all tests.
@@ -92,6 +94,7 @@ public class HttpCliRootActionTest {
      */
     @Before
     public void prepareSomeStuff() throws Exception {
+        logger.info("Before tests starts");
         Hudson hudson = MockUtils.mockHudson();
         MockUtils.mockMetadataValueDescriptors(hudson);
 
@@ -113,6 +116,7 @@ public class HttpCliRootActionTest {
         action = new HttpCliRootAction();
 
         printed = null;
+        logger.info("Before tests ends");
     }
 
     /**
